@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="css/chatbox.css" />
+    <title>Chatbix</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta content="Whatcha doing here ?" name="description" />
+    <script src="/js/deps/vue.js" type="text/javascript" defer></script>
+    <script src="/js/deps/showdown.js" type="text/javascript" defer></script>
+    <script src="/js/chatbox.js" type="text/javascript" defer></script>
+  </head>
+  <body>
+    <div id="history">
+      <span>Obtenir tout l'historique depuis</span>
+      <input value="2016-06-01" type="date">
+      <span>jusqu'à</span>
+      <input value="2016-07-31" type="date">
+      <input id="historygo" value="Go!" type="button">
+    </div>
+    <div id="chatbox">
+    </div>
+    <div id="users">
+      <div id="users_connected">Users connected :</div>
+      <div id="user_list">
+      
+      </div>
+    </div>
+    <div id="bottom">
+      <input id="username" placeholder="Username" value="" size="15" type="text">
+      <input value="#222222" name="textcolor" type="color">
+      <textarea rows="1" id="msgbox" name="msgbox" style="width: 695px; height: 30px;">
+      </textarea>
+      <input id="sendbutton" value="Send" type="submit">
+    </div>
+  </body>
+</html>
+
