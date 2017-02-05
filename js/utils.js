@@ -60,3 +60,31 @@ function esc(string) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;')
 }
+
+function notifyMe(title,body,url){
+    var notif = new Notification(title,{body:body});
+    notif.onclick = function(){
+        window.focus();
+    }
+}
+
+function grantNotificationRights() {
+    if (!("Notification" in window)) {
+        console.error("This browser does not support notifications");
+    }
+    else if (Notification.permission === "granted") {
+        console.info("Right to notify user has been granted.");
+    }
+    else if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function (permission) {
+            if(!('permission' in Notification)) {
+                Notification.permission = permission;
+            }
+            if (permission === "granted") {
+                console.info("Right to notify user has been granted.");
+            }
+        });
+    }
+}
+
+grantNotificationRights();

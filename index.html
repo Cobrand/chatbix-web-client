@@ -16,7 +16,7 @@
           <div class="author" v-bind:title="'message id: '+message.id">[{{message.human_date}}] <span v-bind:style="{color:message.color}">{{message.author}}</span> :</div><div v-html="message.HTMLcontent" class="content"></div>
       </div>
       <div class="line_error" v-else>
-          <div class="content">{{message.content}}</div>
+          <div class="content" v-html="message.HTMLcontent"></div>
       </div>
     </script>
     <script src="/js/utils.js" type="text/javascript" defer></script>
@@ -26,10 +26,10 @@
     <div id="app">
       <div id="history">
         <span>Obtenir tout l'historique depuis</span>
-        <input value="2016-06-01" type="date">
+        <input v-bind:value="history_begin" type="date">
         <span>jusqu'à</span>
-        <input value="2016-07-31" type="date">
-        <input id="historygo" value="Go!" type="button">
+        <input v-bind:value="history_end" type="date">
+        <input  value="Go!" type="button" v-on:click="history_go">
       </div>
       <div id="chatbox">
         <template v-cloak v-for="message in messages">
@@ -42,6 +42,15 @@
           <div class="user" v-bind:class="{user_inactive:!user.active}">
             <span>{{user.username}}</span>
           </div>
+        </div>
+        <div id="channels">
+          <div v-cloak v-if="channels.length > 0" class="channel" v-bind:class="{current_channel:current_channel == null}" @click="set_cur_channel(null)">
+            <span class="channel_name" >Default</span>
+          </div>
+          <div v-cloak v-for="(channel, index) in channels" class="channel" v-bind:class="{current_channel:channel.current}" @click="set_cur_channel(index)">
+            <span class="channel_name">{{channel.name}}</span><input class="channel_color" v-model="channel.color" type="color"><input class="channel_del" type="button" @click.stop="del_channel(index)" value="X">
+          </div>
+          <input align=right" v-model="channel_candidate" autocomplete="off" placeholder="New Channel" size="8" type="text" @keydown.enter="add_channel">
         </div>
       </div>
       <div id="bottom">

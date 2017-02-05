@@ -1,12 +1,17 @@
 [v-cloak] { display: none }
 /* hides if Vue hasnt compiled yet */
 
+h1, h2, h3, h4, h5, h6, pre {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
 body {
     background-color: #ebf4fb;
     color: #111;
     font-size: 12px;
     font-family: sans-serif;
-    width:calc(100% - 179px);
+    width:calc(100% - 159px);
     margin: 0;
     padding: 0;
 }
@@ -45,6 +50,7 @@ form, p, span,tr,td {
     padding:8px;
     font-size: 16px ;
     height:100vh;
+    box-sizing:border-box;
     width:160px;
     border-left: 3px solid #acd8f0;
 }
@@ -59,6 +65,8 @@ form, p, span,tr,td {
 
 #user_list {
     font-size:14px;
+    max-height:70vh;
+    overflow-y: auto;
 }
 
 .user{
@@ -124,8 +132,8 @@ a {
 
 .img_chatbox {
     height: auto;
-    max-height: 400px;
-    max-width: 500px;
+    max-height: 500px;
+    max-width: 600px;
     width: auto;
 }
 
@@ -147,6 +155,48 @@ a {
     border-right:4px solid #75aef4;
     -webkit-border-radius: 0px 0px 5px 5px;
     border-radius: 0px 0px 5px 5px;
+}
+
+#channels {
+    margin-top:10vh;
+}
+
+.channel {
+    font-size:13px;
+    height:20px;
+    padding: 3px;
+    padding-ottom:2px;
+    cursor: pointer;
+}
+
+.channel.current_channel {
+    border:1px solid #888888;
+    padding:2px;
+    border-radius:4px;
+}
+
+.channel_color {
+    float: right;
+    width: 25px;
+    height:13px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top:0px;
+    padding-bottom:0px;
+    border: 2px;
+}
+
+.channel_del {
+    color: #EE0000;
+    font-weight:bold;
+    float:right;
+    width:15px;
+    height:20px;
+    border:1px solid #AAA;
+    border-radius: 2px;
+    padding-left:2px;
+    padding-top:0px;
+    padding-bottom:0px;
 }
 
 .author {
