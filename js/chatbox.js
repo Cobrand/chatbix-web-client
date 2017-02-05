@@ -64,13 +64,10 @@ var vue = new Vue({
                 this.messages = messages;
             } else {
                 if (messages.length !== 0) {
-                    unread_message_count += messages.length;
+                    this.unread_message_count += messages.length;
                     messages.forEach(function(m){
                         this.messages.push(m);
                     }.bind(this))
-                    if (this.preferences.auto_scroll) {
-                        window.scrollTo(0,document.body.scrollHeight)
-                    }
                 }
             };
         },
@@ -158,7 +155,7 @@ var vue = new Vue({
         },
         color: function(new_color) {
             localStorage.usercolor = new_color;
-        }
+        },
     }
 });
 
@@ -166,3 +163,14 @@ var username_debouncer = _.debounce(function(){
     this.pub_username = this.username;
 }.bind(vue),1000,{leading:false,trailing:true});
 vue.startup();
+
+document.getElementById("chatbox").addEventListener("DOMNodeInserted", function(){
+    if (vue.preferences.auto_scroll) {
+        window.scrollTo(0,document.body.scrollHeight)
+    }
+    //scroll_debouncer();
+});
+
+// var scroll_debouncer = _.debounce(function(){
+//    window.scrollTo(0,document.body.scrollHeight)
+// }.bind(vue),10,{leading:false, trailing:true});

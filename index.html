@@ -26,10 +26,7 @@
       <div id="chatbox">
         <template v-cloak class="line" v-for="message in messages">
           <div class="line_message" v-if="message.author != null">
-            <div class="author">
-              <span >[{{message.human_date}}] <span v-bind:style="{color:message.color}">{{message.author}}</span> :</span>
-            </div>
-            <div class="content">{{message.content}}</div>
+            <div class="author" v-bind:title="'message id: '+message.id">[{{message.human_date}}] <span v-bind:style="{color:message.color}">{{message.author}}</span> :</div><div class="content">{{message.content}}</div>
           </div>
           <div class="line_error" v-else>
             <div class="content">{{message.content}}</div>
