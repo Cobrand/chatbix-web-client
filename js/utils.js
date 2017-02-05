@@ -11,7 +11,11 @@ var AJAX = {
       response_fun(request);
     };
     request.onerror = function(e) {
-      request.responseJSON = JSON.parse(request.responseText) ;
+      try {
+        request.responseJSON = JSON.parse(request.responseText) ;
+      catch (e) {
+        request.responseJSON = {}
+      }
       if (error_fun) {
         error_fun(e,request);
       }
@@ -24,7 +28,11 @@ var AJAX = {
     request.open('POST',url, true);
     request.setRequestHeader("Content-Type", "application/json");
     request.onload = function() {
-      request.responseJSON = JSON.parse(request.responseText) ;
+      try {
+        request.responseJSON = JSON.parse(request.responseText) ;
+      catch (e) {
+        request.responseJSON = {}
+      }
       response_fun(request);
     };
     request.onerror = function(e) {
