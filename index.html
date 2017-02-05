@@ -9,6 +9,7 @@
     <meta content="Whatcha doing here ?" name="description" />
     <script src="https://unpkg.com/vue/dist/vue.js" defer></script>
     <!--<script src="/js/deps/vue.min.js" type="text/javascript" defer></script>-->
+    <script src="/js/deps/lodash.min.js" type="text/javascript" defer></script>
     <script src="/js/deps/showdown.min.js" type="text/javascript" defer></script>
     <script src="/js/utils.js" type="text/javascript" defer></script>
     <script src="/js/chatbox.js" type="text/javascript" defer></script>
@@ -23,24 +24,32 @@
         <input id="historygo" value="Go!" type="button">
       </div>
       <div id="chatbox">
-        <div class="line" v-for="message in messages">
-          <div class="author">
-            <span >[</span><span>{{message.timestamp}}</span><span>] </span><span v-bind:style="{color:message.color}">{{message.author}}</span><span> :</span>
+        <template v-cloak class="line" v-for="message in messages">
+          <div class="line_message" v-if="message.author != null">
+            <div class="author">
+              <span >[{{message.human_date}}] <span v-bind:style="{color:message.color}">{{message.author}}</span> :</span>
+            </div>
+            <div class="content">{{message.content}}</div>
           </div>
-          <div class="content">{{message.content}}</div>
-        </div>
+          <div class="line_error" v-else>
+            <div class="content">{{message.content}}</div>
+          </div>
+        </template>
       </div>
       <div id="users">
         <div id="users_connected">Users connected :</div>
-        <div id="user_list">
+        <div v-cloak v-for="user in computed_users_connected" id="user_list">
+          <div class="user" v-bind:class="{user_inactive:!user.active}">
+            <span>{{user.username}}</span>
+          </div>
         </div>
       </div>
       <div id="bottom">
         <input id="username" autocomplete="off" v-model="username" placeholder="Username" size="15" type="text">
         <input v-model="color" name="textcolor" type="color">
-        <textarea rows="1" id="msgbox" name="msgbox" style="width: 695px; height: 30px;">
+        <textarea v-model="messagebox" rows="1" id="msgbox" name="msgbox" style="width: 695px; height: 30px;" @keydown.enter="enter_key">
         </textarea>
-        <input id="sendbutton" value="Send" type="submit">
+        <input id="sendbutton" v-on:click="send_message" value="Send" type="submit">
       </div>
     </div>
   </body>

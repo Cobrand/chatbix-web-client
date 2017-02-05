@@ -95,8 +95,15 @@ form, p, span,tr,td {
     box-shadow:         inset 0px 0px 2px 0px rgba(50, 50, 50, 0.75);
 }
 
-.line {
+.line_message {
     background: linear-gradient(to bottom, #C1D8F6 0%, #e9f0f9 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-top: 1px solid #8090a5;
+    min-height: 15px;
+    padding: 5px;
+}
+
+.line_error {
+    background: linear-gradient(to bottom, #ffa3a3 0%,#e9f0f9 100%) repeat scroll 0 0 rgba(0,0,0,0);
     border-top: 1px solid #8090a5;
     min-height: 15px;
     padding: 5px;
