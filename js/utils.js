@@ -13,7 +13,7 @@ var AJAX = {
     request.onerror = function(e) {
       try {
         request.responseJSON = JSON.parse(request.responseText) ;
-      catch (e) {
+      } catch (e) {
         request.responseJSON = {}
       }
       if (error_fun) {
@@ -30,7 +30,7 @@ var AJAX = {
     request.onload = function() {
       try {
         request.responseJSON = JSON.parse(request.responseText) ;
-      catch (e) {
+      } catch (e) {
         request.responseJSON = {}
       }
       response_fun(request);

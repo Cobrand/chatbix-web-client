@@ -245,6 +245,7 @@ var vue = new Vue({
                     username:this.username,
                     content:this.messagebox,
                     auth_key:this.auth_key,
+                    tags: tags,
                     color:this.color,
                     channel:this.current_channel != null ? this.channels[this.current_channel].name : null,
                 },function(req){
