@@ -41,8 +41,18 @@ var vue = new Vue({
             messages = messages.map(function(m){
                 var date = new Date(m.timestamp * 1000);
                 var now = new Date(Date.now());
+                var content_tags = (m.tags >> 8) & 3;
+                var html_content;
+                if (content_tags != 1) {
+                    html_content = esc(m.content).replace(/\n/g,'<br>').replace(/\r/g,'');
+                    if (content_tags == 2) {
+                        html_content = "<pre>"+html_content+"</pre>";
+                    }
+                } else if (content_tags == 1) {
+                    html_content = md_converter.makeHtml(m.content);
+                };
+                m.HTMLcontent = html_content;
                 var date_string = "";
-                
                 if (date.getDate() == now.getDate() &&
                     date.getMonth() == now.getMonth() &&
                     date.getFullYear() == now.getFullYear()) {
@@ -171,6 +181,14 @@ document.getElementById("chatbox").addEventListener("DOMNodeInserted", function(
     //scroll_debouncer();
 });
 
+Vue.component('message-line',{
+    props:['message'],
+    template: '#line-template',
+});
+
 // var scroll_debouncer = _.debounce(function(){
 //    window.scrollTo(0,document.body.scrollHeight)
 // }.bind(vue),10,{leading:false, trailing:true});
+//
+
+var md_converter = new showdown.Converter();
