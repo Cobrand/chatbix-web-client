@@ -88,3 +88,16 @@ function grantNotificationRights() {
 }
 
 grantNotificationRights();
+
+function human_delta(tb, te) {
+    var delta = te - tb;
+    if (delta < 10) {
+        return "<10s";
+    } else if (delta < 60) {
+        return Math.floor(delta / 5) * 5 +"s";
+    } else if (delta < 3600) {
+        return Math.floor(delta / 60) + "m";
+    } else {
+        return Math.floor(delta / 3600) + "h";
+    }
+}

@@ -36,6 +36,7 @@ var vue = new Vue({
         computed_users_connected:function(){
             return this.users_connected.map(function(u){
                 u.active = (u.last_active == u.last_answer);
+                u.human_delta = human_delta(u.last_active, u.last_answer);
                 return u;
             }).sort(function(a,b){
                 return a.username > b.username;

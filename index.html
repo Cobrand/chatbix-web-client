@@ -26,9 +26,9 @@
     <div id="app">
       <div id="history">
         <span>Obtenir tout l'historique depuis</span>
-        <input v-bind:value="history_begin" type="date">
+        <input v-model="history_begin" type="date">
         <span>jusqu'à</span>
-        <input v-bind:value="history_end" type="date">
+        <input v-model="history_end" type="date">
         <input  value="Go!" type="button" v-on:click="history_go">
       </div>
       <div id="chatbox">
@@ -40,7 +40,8 @@
         <div id="users_connected">Users connected :</div>
         <div v-cloak v-for="user in computed_users_connected" id="user_list">
           <div class="user" v-bind:class="{user_inactive:!user.active}">
-            <span>{{user.username}}</span>
+            <span v-if="user.active">{{user.username}}</span>
+            <span v-else>{{user.username}} ({{user.human_delta}})</span>
           </div>
         </div>
         <div id="channels">
