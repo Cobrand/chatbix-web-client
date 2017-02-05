@@ -40,9 +40,20 @@ var vue = new Vue({
             }).sort(function(a,b){
                 return a.username > b.username;
             });
-        }
+        },
     },
     methods: {
+        channel_color:function(name) {
+            var c;
+            if (name == null) {
+                return "#000000";
+            }
+            if ((c = this.channels.find(function(c){return c.name == name})) != null) {
+                return c.color;
+            } else {
+                return "#000000";
+            }
+        },
         blink_title:function(){
             if (this.unread_message_count != 0) {
                 if (this.title_state == 0) {
@@ -68,6 +79,7 @@ var vue = new Vue({
                 var now = new Date(Date.now());
                 var content_tags = (m.tags >> 8) & 3;
                 var html_content;
+                m.channel_color = this.channel_color(m.channel);
                 if (content_tags == 2) {
                     html_content = esc(m.content).replace(/\n/g,'<br>').replace(/\r/g,'');
                     html_content = "<pre>"+html_content+"</pre>";
@@ -100,7 +112,7 @@ var vue = new Vue({
                     +(date.getSeconds() < 10 ? "0":"") +date.getSeconds();
                 m.human_date = date_string;
                 return m;
-            });
+            }.bind(this));
             if (this.messages.length === 0 || override) {
                 this.messages = messages;
                 this.loading_messages = false;
@@ -233,7 +245,7 @@ var vue = new Vue({
                     content:this.messagebox,
                     auth_key:this.auth_key,
                     color:this.color,
-                    channel:this.current_channel ? this.channels[this.current_channel].name : null,
+                    channel:this.current_channel != null ? this.channels[this.current_channel].name : null,
                 },function(req){
                     if (req.status >= 400 && req.status < 500) {
                         this.spawn_error("Error when sending message: Received 4** status code:"+

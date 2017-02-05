@@ -13,7 +13,7 @@
     <script src="/js/deps/showdown.min.js" type="text/javascript" defer></script>
     <script type="text/x-template" id="line-template"> 
       <div class="line_message" v-if="message.author != null">
-          <div class="author" v-bind:title="'message id: '+message.id">[{{message.human_date}}] <span v-bind:style="{color:message.color}">{{message.author}}</span> :</div><div v-html="message.HTMLcontent" class="content"></div>
+          <div class="author" v-bind:title="'message id: '+message.id">[{{message.human_date}}] <span v-if="message.channel != null" v-bind:style="{color:message.channel_color}">({{message.channel}})</span> <span v-bind:style="{color:message.color}">{{message.author}}</span> :</div><div v-html="message.HTMLcontent" class="content"></div>
       </div>
       <div class="line_error" v-else>
           <div class="content" v-html="message.HTMLcontent"></div>
