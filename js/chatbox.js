@@ -225,6 +225,11 @@ var vue = new Vue({
                 } else if ((match = /^\/set\sauto_scroll\s(\w+)/.exec(this.messagebox)) != null) {
                     this.set_preference("auto_scroll",match[1]);
                     abort = true;
+                } else if ((match = /^\/sort\smessages/.exec(this.messagebox)) != null) {
+                    this.messages = this.messages.sort(function(m1, m2) {
+                        return m1.timestamp > m2.timestamp;
+                    });
+                    abort = true;
                 } else if ((match = /^\/help/.exec(this.messagebox)) != null) {
                     abort = true;
                     this.spawn_error("help:\n"+
@@ -232,7 +237,8 @@ var vue = new Vue({
                         "/code [message] : sends `message` as a code/monospace content\n"+
                         "/md [message] : sends `message` as a markdown content\n"+
                         "/set title_blink (true|false) : prevents the title from blinking\n"+
-                        "/set auto_scroll (true|false) ");
+                        "/set auto_scroll (true|false) \n"+
+                        "/sort messages : re-order messages depending on their timestamp");
                 } else if ((match = /^\/(\w+)/.exec(this.messagebox)) != null) {
                     abort = true;
                     this.spawn_error("unknown command `"+match[1]+"`");
