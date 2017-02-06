@@ -321,6 +321,10 @@ var vue = new Vue({
             }
         },
         del_channel:function(i){
+            var channel_name = this.channels[i].name;
+            this.messages = this.messages.filter(function(m){
+                return m.channel != channel_name
+            });
             if (this.current_channel == i) {
                 this.current_channel = null;
             } else if (this.current_channel > i) {
