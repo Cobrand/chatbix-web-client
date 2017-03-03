@@ -60,6 +60,7 @@
         <textarea v-model="messagebox" rows="1" id="msgbox" name="msgbox" style="width: 545px; height: 30px;" @keydown.enter="enter_key">
         </textarea>
         <input id="sendbutton" v-on:click="send_message" value="Send" type="submit">
+        <input type="checkbox" v-model:"preferences.auto_scroll"/> auto-scroll
       </div>
     </div>
   </body>
